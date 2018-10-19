@@ -1,0 +1,44 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>kysymys</title>
+        <meta charset="UTF-8" />
+    </head>
+    
+    <body>
+        <h1><span th:text="${kysymys.getKysymysteksti}">Kysymysteksti</span></h1>
+        
+        <p>Kurssi: <span th:text="${kysymys.getKurssi}">kurssi</span></p>
+        <p>Aihe: <span th:text="${kysymys.getAihe}">aihe</span></p>
+
+        
+        
+        <h3> vastaukset</h3>
+        
+        
+            <li th:each="vastaus : ${vastaukset}">
+                <span th:text="${vastaus.getVastausteksti}">Vastausteksti</span>
+            </br>
+                <span th:text="${vastaus.getOikein}">oikeellisuus</span>
+                <form th:action="@{~/vastaus/poista/{id}(id=${vastaus.getId})}" method="POST">
+                    <input type="submit" value="Poista"/>
+                </form><br />
+            </li>
+        
+        <h2>Luo uusi vastaus</h2>
+        
+        <form method="POST" th:action="@{~/kysymykset/create/{id}(id=${kysymys.getId})}">
+            Vastausteksti:
+            <input type="text" name="vastausteksti"/><br/>
+            Vastaus oikein:
+            <input type="checkbox" name="oikein"/><br/>
+            
+            
+            <input type="submit" value="Lisää vastaus"/>
+        </form>
+        
+        <a href="/"><p>Takaisin kysymyksiin</p></a>
+        
+    </body>
+</html>
