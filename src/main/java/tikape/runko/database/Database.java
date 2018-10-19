@@ -13,6 +13,12 @@ public class Database {
     }
 
     public Connection getConnection() throws SQLException {
+        String dbAdd = System.getenv("JDBC_DATABASE_URL");
+
+        if (dbAdd != null && dbAdd.length() > 0) {
+            return DriverManager.getConnection(dbAdd);
+        }
+
         return DriverManager.getConnection(databaseAddress);
     }
 
